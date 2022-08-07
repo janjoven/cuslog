@@ -13,8 +13,19 @@ const (
 	flag = log.LstdFlags | log.Lshortfile
 )
 
-var todate = time.Now().Format("2006-01-02")
+var (
+	todate   = time.Now().Format("2006-01-02")
+	filesArr = [3]string{"info", "err", "warning"}
+)
 
+func init() {
+	for i := 0; i < len(filesArr); i++ {
+		if err := os.MkdirAll("./log/"+filesArr[i], 0775); err != nil {
+			log.Panic("Can't create files :", err)
+		}
+	}
+
+}
 func (ag *AggregatedLog) Info(v ...interface{}) {
 
 	file, err := openLogFile("./log/info/" + fmt.Sprint(todate) + ".log")

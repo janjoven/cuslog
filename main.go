@@ -7,8 +7,6 @@ import (
 	"time"
 )
 
-type AggregatedLog struct{}
-
 const (
 	flag = log.LstdFlags | log.Lshortfile
 )
@@ -26,7 +24,7 @@ func init() {
 	}
 
 }
-func (ag *AggregatedLog) Info(v ...interface{}) {
+func Info(v ...interface{}) {
 
 	file, err := openLogFile("./log/info/" + fmt.Sprint(todate) + ".log")
 	if err != nil {
@@ -38,7 +36,7 @@ func (ag *AggregatedLog) Info(v ...interface{}) {
 	infoLogger.SetOutput(file)
 	infoLogger.Println(v...)
 }
-func (ag *AggregatedLog) Err(v ...interface{}) {
+func Err(v ...interface{}) {
 
 	file, err := openLogFile("./log/err/" + fmt.Sprint(todate) + ".log")
 	if err != nil {
@@ -50,7 +48,7 @@ func (ag *AggregatedLog) Err(v ...interface{}) {
 	infoLogger.SetOutput(file)
 	infoLogger.Println(v...)
 }
-func (ag *AggregatedLog) Warn(v ...interface{}) {
+func Warn(v ...interface{}) {
 
 	file, err := openLogFile("./log/warn/" + fmt.Sprint(todate) + ".log")
 	if err != nil {
